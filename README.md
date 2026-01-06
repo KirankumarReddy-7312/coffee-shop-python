@@ -1,9 +1,25 @@
-# Coffee Shop Program (Python)
-
-A simple Python function-based program that simulates a coffee shop order system using conditional statements.
-
-## Features
-- Takes user name and drink choice
-- Supports multiple drinks
-- Returns order confirmation message
-
+def coffee_shop(name, drink, ):
+    if drink == "coffee":
+        print(f"wow! that's a good choice, {name} \nwait for 5 minuts and take your order")
+        return f"{name}, please take your coffee"        
+    elif drink == "tea":
+        print(f"wow that's a good choice, {name} \nwait for 5 minuts and take your order")
+        return f"{name}, please take your tea"
+    elif drink == "boost":
+        print(f"wow that's a good choice, {name} \nwait for 5 minuts and take your order")
+        return f"{name}, please take your boost"
+    elif drink == "horlicks":
+        print(f"wow that's a good choice, {name} \nwait for 5 minuts and take your order")
+        return f"{name}, please take your horlicks"
+    elif drink == "milk":
+        print(f"wow that's a good choice, {name} \nwait for 5 minuts and take your order")
+        return f"{name}, please take your milk"
+    elif drink == "water":
+        print(f"wow that's a good choice, {name} \nwait for 5 minuts and take your order")
+        return f"{name}, please take your water"
+    elif drink == "juice":
+        print(f"wow that's a good choice, {name} \nwait for 5 minuts and take your order")
+        return f"{name}, please take your juice"
+    else:
+        return f"{name}, please enter a valid drink"
+print(f"{coffee_shop(input("Enter your name: "), input("Enter your drink (coffee, tea, boost, horlicks, milk, water, juice): "))}")
