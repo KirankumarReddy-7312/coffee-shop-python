@@ -1,51 +1,68 @@
-def coffe_shop():
-    name = input("Please enter your name")
+import tkinter as tk
+from tkinter import messagebox
 
-    print(f"Welcome to our coffee shop\n Hi {name} Choose your drink:")
+drinks = {
+    "Coffee": 20,
+    "Tea": 10,
+    "Lemon Tea": 15,
+    "Boost": 25,
+    "Milk": 12,
+    "Horlicks": 18,
+    "Ginger Tea": 22,
+    "Water": 10,
+    "Cappuccino": 25
+}
 
-    print("\n1.Coffee\n2.Tea\n3.Lemon Tea\n4.Boost\n5.Milk\n6.Horlicks\n7.Ginger Tea\n8.Water\n9.Cappucino")
+def calculate_bill():
+    name = name_entry.get()
+    drink = drink_var.get()
+    quantity = qty_entry.get()
 
-    choice = input("Enter your drink number: ")
-    drink = {
-        "1": "Coffee",
-        "2": "Tea",
-        "3": "Lemon Tea",
-        "4": "Boost",
-        "5": "Milk",
-        "6": "Horlicks",
-        "7": "Ginger Tea",
-        "8" : "Water",
-        "9" : "Cappucino"
-    }
-    if choice in drink:
-        quantity = int(input("Enter the quantity"))
-        price = [20, 10, 15, 25, 12, 18, 22, 10, 25]
-        item = price[int(choice) - 1]
-        total = quantity * item 
-        print(f"{name}, you selected {drink[choice]}")
-        if total > 150:
-            discount = total*3/100
-            print(f"Your total is {total} and discount is {discount}")
-            print(f"{name}!Please wait for your order to be ready")
-        elif total >= 150 and total <= 249:
-            discount = total*5/100
-            print(f"Your total is {total} and discount is {discount}")
-            print(f"{name}!Please wait for your order to be ready")
-        elif total > 250 and total <= 400:
-            discount = total*7/100
-            print(f"Your total is {total} and discount is {discount}")
-            print(f"{name}!Please wait for your order to be ready")
-        elif total >= 401 and total <= 600:
-            discount = total*10/100
-            print(f"Your total is {total} and discount is {discount}")
-            print(f"{name}!Please wait for your order to be ready")
-        else:
-            print(f"Your total amount to be paid is {total}\nNote:{name} Add more items and get more discount")
-            print(f"{name}!Please wait for your order to be ready")
-            print("Thanks for visiting our coffee shop")
-            print(f"{name}, Tell us your experience about the our coffee shop")
-            experience = input("Enter your experience: ")
-        print("Thank you for your feedback! have a nice day\n        Visit again          ")
-    else:
-        print(f"{name} your drink is not available, please select from the list")
-coffe_shop()
+    if name == "" or quantity == "":
+        messagebox.showwarning("Input Error", "Please enter all details")
+        return
+
+    quantity = int(quantity)
+    price = drinks[drink]
+    total = quantity * price
+
+    discount = 0
+    if total > 600:
+        discount = total * 0.10
+    elif total > 400:
+        discount = total * 0.07
+    elif total >= 250:
+        discount = total * 0.05
+    elif total > 150:
+        discount = total * 0.03
+
+    final_amount = total - discount
+
+    result_text.set(
+        f"Hi {name}\n"
+        f"Drink: {drink}\n"
+        f"Quantity: {quantity}\n"
+        f"Total: ₹{total}\n"
+        f"Discount: ₹{discount:.2f}\n"
+        f"Final Amount: ₹{final_amount:.2f}\n"
+        "Please wait for your order!"
+    )
+root = tk.Tk()
+root.title("Coffee Shop")
+root.geometry("400x450")
+tk.Label(root, text="Coffee Shop", font=("Arial", 18, "bold")).pack(pady=10)
+tk.Label(root, text="Enter your name").pack()
+name_entry = tk.Entry(root)
+name_entry.pack()
+tk.Label(root, text="Select your drink").pack(pady=5)
+drink_var = tk.StringVar()
+drink_var.set("Coffee")
+drink_menu = tk.OptionMenu(root, drink_var, *drinks.keys())
+drink_menu.pack()
+tk.Label(root, text="Enter quantity").pack(pady=5)
+qty_entry = tk.Entry(root)
+qty_entry.pack()
+tk.Button(root, text="Order Now", command=calculate_bill, bg="green", fg="white").pack(pady=15)
+result_text = tk.StringVar()
+tk.Label(root, textvariable=result_text, justify="left", font=("Arial", 11)).pack(pady=10)
+root.mainloop()
